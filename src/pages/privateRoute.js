@@ -2,11 +2,16 @@ import React from "react";
 
 import { Navigate } from 'react-router-dom';
 
-function Protected({ isSignedIn, children }) {
-    if (!isSignedIn) {
+function Protected({ children }) {
+
+    const token = localStorage.getItem('Anonymous');
+
+    if (!token) {
         return <Navigate to='/login' replace />
     }
-    return children
+    return children 
+    
 }
 
 export default Protected
+
