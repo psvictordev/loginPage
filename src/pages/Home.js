@@ -8,15 +8,15 @@ export default function Home() {
     const navigate = useNavigate();
 
     const signout = () => {
-        localStorage.removeItem('Anonymous', false);
+        localStorage.clear();
 
-        navigate('/');
+        navigate('/');  
     }
 
     return (
         <div>
             <h1>
-                Você está Logado
+                Você está Logado!
             </h1>
 
             <Button variant='primary' onClick={signout}>Sign Out</Button>{' '}

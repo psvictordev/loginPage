@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ import Login from './pages/Login'
 import Protected from './pages/privateRoute'
 
 function App() {
-  const navigate = useNavigate();
+  useNavigate();
 
   return (
     <div>
@@ -23,6 +24,7 @@ function App() {
           <Login />
         }
         />
+        
       </Routes>
 
     </div>
@@ -32,5 +34,4 @@ function App() {
 
 
 export default App;
-
 

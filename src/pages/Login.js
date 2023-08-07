@@ -1,14 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
 
+    const [user, setUser] = useState({});
+    const [password, setPassword] = useState({});
+
     const navigate = useNavigate();
 
     const signin = () => {
-        localStorage.setItem('Anonymous', false);
+
+        localStorage.setItem(user + password, true);
 
         navigate('/');
     }
@@ -19,7 +25,20 @@ export default function Login() {
                 Login Page
             </h1>
 
-            <Button variant='primary' onClick={signin}>Sign In</Button>{' '}
+            <Form onSubmit={signin}>
+
+                <Form.Group>
+                    <Form.Label>Usuário:</Form.Label>
+                    <Form.Control type="text" name='user' onChange={ (event) => setUser(event.target.value)}/>
+                </Form.Group>
+
+                <Form.Group>
+                    <Form.Label>Senha:</Form.Label>
+                    <Form.Control type="password" name='password' onChange={ (event) => setPassword(event.target.value)}/>
+                </Form.Group>
+                <br />
+                <Button variant='primary' type='submit'>Sign In</Button>{' '}
+            </Form> 
         </div>
     );
 }
