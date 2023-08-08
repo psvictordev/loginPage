@@ -1,27 +1,29 @@
 import React from "react";
 
-import Button from 'react-bootstrap/Button';
-import { useNavigate } from 'react-router-dom';
+import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const usuario = localStorage.getItem("usuario");
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const signout = () => {
+    localStorage.clear();
 
-    const signout = () => {
-        localStorage.clear();
+    navigate("/");
+  };
 
-        navigate('/');  
-    }
+  return (
+    <div>
+      <h1 className="d-flex justify-content-center">
+        Você está Logado {usuario}!
+      </h1>
 
-    return (
-        <div>
-            <h1 className="d-flex justify-content-center">
-                Você está Logado!
-            </h1>
-
-            <div className="d-flex justify-content-center">
-                <Button variant='primary' onClick={signout} size='lg'>Sign Out</Button>{' '}
-            </div>
-        </div>
-    );
+      <div className="d-flex justify-content-center">
+        <Button variant="primary" onClick={signout} size="lg">
+          Sign Out
+        </Button>{" "}
+      </div>
+    </div>
+  );
 }
