@@ -1,0 +1,256 @@
+From 8de819afe6cce58ad3494c2c91e9b8d69a269a15 Mon Sep 17 00:00:00 2001
+From: Djalma Araujo <djalma.araujo@gmail.com>
+Date: Tue, 8 Aug 2023 13:26:20 -0300
+Subject: [PATCH] Login example
+
+---
+ .prettierrc               |   4 ++
+ src/pages/Home.js         |  38 +++++------
+ src/pages/Login.js        | 133 ++++++++++++++++++++++++--------------
+ src/pages/privateRoute.js |  19 ++----
+ 4 files changed, 116 insertions(+), 78 deletions(-)
+ create mode 100644 .prettierrc
+
+diff --git a/.prettierrc b/.prettierrc
+new file mode 100644
+index 0000000..222861c
+--- /dev/null
++++ b/.prettierrc
+@@ -0,0 +1,4 @@
++{
++  "tabWidth": 2,
++  "useTabs": false
++}
+diff --git a/src/pages/Home.js b/src/pages/Home.js
+index 778b7ec..139a56b 100644
+--- a/src/pages/Home.js
++++ b/src/pages/Home.js
+@@ -1,27 +1,29 @@
+ import React from "react";
+ 
+-import Button from 'react-bootstrap/Button';
+-import { useNavigate } from 'react-router-dom';
++import Button from "react-bootstrap/Button";
++import { useNavigate } from "react-router-dom";
+ 
+ export default function Home() {
++  const usuario = localStorage.getItem("usuario");
++  const navigate = useNavigate();
+ 
+-    const navigate = useNavigate();
++  const signout = () => {
++    localStorage.clear();
+ 
+-    const signout = () => {
+-        localStorage.clear();
++    navigate("/");
++  };
+ 
+-        navigate('/');  
+-    }
++  return (
++    <div>
++      <h1 className="d-flex justify-content-center">
++        Você está Logado {usuario}!
++      </h1>
+ 
+-    return (
+-        <div>
+-            <h1 className="d-flex justify-content-center">
+-                Você está Logado!
+-            </h1>
+-
+-            <div className="d-flex justify-content-center">
+-                <Button variant='primary' onClick={signout} size='lg'>Sign Out</Button>{' '}
+-            </div>
+-        </div>
+-    );
++      <div className="d-flex justify-content-center">
++        <Button variant="primary" onClick={signout} size="lg">
++          Sign Out
++        </Button>{" "}
++      </div>
++    </div>
++  );
+ }
+diff --git a/src/pages/Login.js b/src/pages/Login.js
+index 3994142..ee010b0 100644
+--- a/src/pages/Login.js
++++ b/src/pages/Login.js
+@@ -1,56 +1,93 @@
+-import React, {useState } from "react";
++import React, { useState } from "react";
+ 
+-import Button from 'react-bootstrap/Button';
+-import Form from 'react-bootstrap/Form';
++import Button from "react-bootstrap/Button";
++import Form from "react-bootstrap/Form";
++import Alert from "react-bootstrap/Alert";
+ 
+-import Container from 'react-bootstrap/Container';
+-import Row from 'react-bootstrap/Row';
+-import Col from 'react-bootstrap/Col';
++import Container from "react-bootstrap/Container";
++import Row from "react-bootstrap/Row";
++import Col from "react-bootstrap/Col";
+ 
+-import { useNavigate } from 'react-router-dom';
++import { useNavigate } from "react-router-dom";
+ 
++const validaLogin = {
++  username: "a",
++  password: "b",
++};
+ 
++export default function Login() {
++  const [user, setUser] = useState({});
++  const [password, setPassword] = useState({});
++  const [error, setError] = useState(null);
+ 
+-export default function Login() { 
++  const navigate = useNavigate();
+ 
+-    const [user, setUser] = useState({});
+-    const [password, setPassword] = useState({});
+-
+-    const navigate = useNavigate();
+-
+-    const signin = () => {
+-
+-        localStorage.setItem(user + password, true);
+-
+-        navigate('/error');
++  const signin = (e) => {
++    e.preventDefault();
++    if (user !== validaLogin.username || password !== validaLogin.password) {
++      setError(true);
++      return;
+     }
+-    
+-    return (
+-        <Container fluid='sm'>
+-            <Row>
+-                <Col>
+-                    <h1  className="d-flex justify-content-center">Login Page</h1>
+-                </Col>
+-            </Row>
+-
+-            <Form onSubmit={signin} >
+-
+-                <Form.Group>
+-                    <Form.Label className="d-flex justify-content-center">Usuário:</Form.Label>
+-                    <Form.Control type="text" name='user' onChange={ (event) => setUser(event.target.value)} className="content-center"/>
+-                </Form.Group>
+-
+-                <Form.Group>
+-                    <Form.Label className="d-flex justify-content-center">Senha:</Form.Label>
+-                    <Form.Control type="password" name='password' onChange={ (event) => setPassword(event.target.value)}/>
+-                </Form.Group>
+-                <br />
+-                <div className="d-flex justify-content-center">
+-                <Button variant='primary' type='submit' size='lg'>Sign In</Button>{' '}
+-                </div>
+-            </Form> 
+-        </Container>        
+-
+-    ) 
+-
+-} 
+\ No newline at end of file
++
++    localStorage.setItem("usuario", "Victor Brocolis");
++
++    navigate("/");
++  };
++
++  return (
++    <Container fluid="sm">
++      {error && (
++        <Alert show={error} variant="danger">
++          <Alert.Heading className="d-flex justify-content-center">
++            Alert
++          </Alert.Heading>
++          <p className="d-flex justify-content-center">
++            Usuário ou Senha Inválidos!
++          </p>
++          <hr />
++          <div className="d-flex justify-content-center">
++            <Button onClick={signin} variant="danger" size="lg">
++              Back to Login Page
++            </Button>
++          </div>
++        </Alert>
++      )}
++      <Row>
++        <Col>
++          <h1 className="d-flex justify-content-center">Login Page</h1>
++        </Col>
++      </Row>
++
++      <Form onSubmit={signin}>
++        <Form.Group>
++          <Form.Label className="d-flex justify-content-center">
++            Usuário:
++          </Form.Label>
++          <Form.Control
++            type="text"
++            name="user"
++            onChange={(event) => setUser(event.target.value)}
++            className="content-center"
++          />
++        </Form.Group>
++
++        <Form.Group>
++          <Form.Label className="d-flex justify-content-center">
++            Senha:
++          </Form.Label>
++          <Form.Control
++            type="password"
++            name="password"
++            onChange={(event) => setPassword(event.target.value)}
++          />
++        </Form.Group>
++        <br />
++        <div className="d-flex justify-content-center">
++          <Button variant="primary" type="submit" size="lg">
++            Sign In
++          </Button>{" "}
++        </div>
++      </Form>
++    </Container>
++  );
++}
+diff --git a/src/pages/privateRoute.js b/src/pages/privateRoute.js
+index 0f5345c..b4b0851 100644
+--- a/src/pages/privateRoute.js
++++ b/src/pages/privateRoute.js
+@@ -1,19 +1,14 @@
+ import React from "react";
+ 
+-import { Navigate } from 'react-router-dom';
++import { Navigate } from "react-router-dom";
+ 
+ function Protected({ children }) {
++  const token = localStorage.getItem("usuario");
+ 
+-    const token = localStorage.getItem(['Victor6015']);
+-  
+-    if (!token) {
+-        return (
+-            <Navigate to='/login' replace /> 
+-        )   
+-    }
+-    return children 
+-    
++  if (!token) {
++    return <Navigate to="/login" replace />;
++  }
++  return children;
+ }
+ 
+-export default Protected
+-
++export default Protected;
+-- 
+2.39.2 (Apple Git-143)
+

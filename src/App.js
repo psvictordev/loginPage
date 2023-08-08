@@ -6,8 +6,6 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import Home from './pages/Home'
 import Login from './pages/Login'
-import Error from './pages/Error'
-//import Alert from './pages/Alert'
 import Protected from './pages/privateRoute'
 
 function App() {
@@ -26,10 +24,6 @@ function App() {
           <Login />
         }
         />
-        <Route path='error' element={
-          <Error />
-        }
-        />
       </Routes>
 
     </div>
@@ -38,4 +32,3 @@ function App() {
 }
 
 export default App;
-

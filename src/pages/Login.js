@@ -44,12 +44,6 @@ export default function Login() {
           <p className="d-flex justify-content-center">
             Usuário ou Senha Inválidos!
           </p>
-          <hr />
-          <div className="d-flex justify-content-center">
-            <Button onClick={signin} variant="danger" size="lg">
-              Back to Login Page
-            </Button>
-          </div>
         </Alert>
       )}
       <Row>

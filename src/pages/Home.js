@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div>
       <h1 className="d-flex justify-content-center">
-        Você está Logado {usuario}!
+        {usuario} está Logado!
       </h1>
 
       <div className="d-flex justify-content-center">
