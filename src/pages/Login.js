@@ -1,11 +1,13 @@
-import React, {useState} from "react";
+import React, {useState } from "react";
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
+
+
+export default function Login() { 
 
     const [user, setUser] = useState({});
     const [password, setPassword] = useState({});
@@ -16,9 +18,9 @@ export default function Login() {
 
         localStorage.setItem(user + password, true);
 
-        navigate('/');
+        navigate('/error');
     }
-
+    
     return (
         <div>
             <h1>
@@ -40,5 +42,8 @@ export default function Login() {
                 <Button variant='primary' type='submit'>Sign In</Button>{' '}
             </Form> 
         </div>
-    );
-}
+        
+
+    ) 
+
+} 
