@@ -15,12 +15,13 @@ export default function Home() {
 
     return (
         <div>
-            <h1>
+            <h1 className="d-flex justify-content-center">
                 Você está Logado!
             </h1>
 
-            <Button variant='primary' onClick={signout}>Sign Out</Button>{' '}
-
+            <div className="d-flex justify-content-center">
+                <Button variant='primary' onClick={signout} size='lg'>Sign Out</Button>{' '}
+            </div>
         </div>
     );
 }

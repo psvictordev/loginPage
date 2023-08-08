@@ -3,6 +3,10 @@ import React, {useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 import { useNavigate } from 'react-router-dom';
 
 
@@ -22,27 +26,30 @@ export default function Login() {
     }
     
     return (
-        <div>
-            <h1>
-                Login Page
-            </h1>
+        <Container fluid='sm'>
+            <Row>
+                <Col>
+                    <h1  className="d-flex justify-content-center">Login Page</h1>
+                </Col>
+            </Row>
 
-            <Form onSubmit={signin}>
+            <Form onSubmit={signin} >
 
                 <Form.Group>
-                    <Form.Label>Usuário:</Form.Label>
-                    <Form.Control type="text" name='user' onChange={ (event) => setUser(event.target.value)}/>
+                    <Form.Label className="d-flex justify-content-center">Usuário:</Form.Label>
+                    <Form.Control type="text" name='user' onChange={ (event) => setUser(event.target.value)} className="content-center"/>
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Label>Senha:</Form.Label>
+                    <Form.Label className="d-flex justify-content-center">Senha:</Form.Label>
                     <Form.Control type="password" name='password' onChange={ (event) => setPassword(event.target.value)}/>
                 </Form.Group>
                 <br />
-                <Button variant='primary' type='submit'>Sign In</Button>{' '}
+                <div className="d-flex justify-content-center">
+                <Button variant='primary' type='submit' size='lg'>Sign In</Button>{' '}
+                </div>
             </Form> 
-        </div>
-        
+        </Container>        
 
     ) 
 
