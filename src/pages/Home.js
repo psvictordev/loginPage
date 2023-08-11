@@ -13,11 +13,19 @@ export default function Home() {
     navigate("/");
   };
 
+  const addDog = () => {
+    navigate("./AddDog");
+  };
+
   return (
     <div>
-      <h1 className="d-flex justify-content-center">
-        {usuario} está Logado!
-      </h1>
+      <h1 className="d-flex justify-content-center">Cachorro de {usuario}!</h1>
+
+      <div className="d-flex justify-content-center">
+        <Button variant="primary" onClick={addDog} size="lg">
+          Adicionar Cachorro
+        </Button>{" "}
+      </div>
 
       <div className="d-flex justify-content-center">
         <Button variant="primary" onClick={signout} size="lg">
