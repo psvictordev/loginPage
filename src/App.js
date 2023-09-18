@@ -1,35 +1,44 @@
 import React from "react";
-import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./Pages/Login";
+import Dogs from "./Pages/Dogs";
+import AddPage from "./Pages/AddPage";
+import EditPage from "./Pages/EditPage";
+import PrivateRoute from "./Pages/PrivateRoute";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { Routes, Route, useNavigate } from "react-router-dom";
-
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import AddDog from "./pages/AddDog";
-import EditDog from "./pages/EditDog";
-import Protected from "./pages/privateRoute";
-
 function App() {
-  useNavigate();
-
   return (
-    <div>
+    <BrowserRouter>
       <Routes>
+        <Route path="login" element={<Login />}></Route>
         <Route
           path="/"
           element={
-            <Protected>
-              <Home />
-            </Protected>
+            <PrivateRoute>
+              <Dogs />
+            </PrivateRoute>
           }
-        />
-        <Route path="login" element={<Login />} />
-        <Route path="addDog" element={<AddDog />} />
-        <Route path="editdog" element={<EditDog />} />
-        <Route path="*" element={<Home />} />
+        ></Route>
+        <Route
+          path="/Dogs/AddPage"
+          element={
+            <PrivateRoute>
+              <AddPage />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/Dogs/:id/EditPage"
+          element={
+            <PrivateRoute>
+              <EditPage />
+            </PrivateRoute>
+          }
+        ></Route>
       </Routes>
-    </div>
+    </BrowserRouter>
   );
 }
 
